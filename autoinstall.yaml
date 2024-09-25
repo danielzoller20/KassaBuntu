@@ -26,7 +26,9 @@ autoinstall:
  late-commands:
   - curtin in-target -- apt update
   - curtin in-target -- apt -y upgrade
-  - curtin in-target -- wget https://raw.githubusercontent.com/danielzoller20/signage/main/install_asRoot.sh -O /tmp/install_asRoot.sh
-  - curtin in-target -- /bin/bash /tmp/install_asRoot.sh
-  - curtin in-target -- wget https://raw.githubusercontent.com/danielzoller20/signage/main/install_asUser.sh -O /signage/install_asUser.sh
-  - curtin in-target -- chmod +x /signage/install_asUser.sh 
+  - curtin in-target -- wget get -p https://github.com/danielzoller20/BstellOnlineMonitor/archive/refs/heads/master.zip -O /tmp/BstellOnlineMonitor.zip
+  - curtin in-target -- unzip /tmp/BstellOnlineMonitor.zip -d /tmp
+  - curtin in-target -- mkdir /monitoring
+  - curtin in-target -- mv /tmp/BstellOnlineMonitor-master/* /monitoring
+  - curtin in-target -- wget https://raw.githubusercontent.com/danielzoller20/KassaBuntu/refs/heads/main/applyEnergySettings.sh -O /monitoring/applyEnergySettings.sh
+  - curtin in-target -- chmod +x /tmp/applyEnergySettings.sh 
