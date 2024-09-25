@@ -1,0 +1,32 @@
+#cloud-config
+autoinstall:
+ version: 1
+ storage:
+  layout:
+   name: lvm
+   policy: all
+ user-data:
+  users: ['']
+ locale: "de_CH.UTF-8"
+ keyboard:
+  layout: "ch"
+ source:
+  search_drivers: true
+  id: ubuntu-desktop-minimal
+ ssh:
+  install-server: true
+  allow-pw: true
+ drivers:
+  install: true
+ packages:
+  - openssh-server
+ timezone: Europe/Zurich
+ updates: all
+ shutdown: reboot
+ late-commands:
+  - curtin in-target -- apt update
+  - curtin in-target -- apt -y upgrade
+  - curtin in-target -- wget https://raw.githubusercontent.com/danielzoller20/signage/main/install_asRoot.sh -O /tmp/install_asRoot.sh
+  - curtin in-target -- /bin/bash /tmp/install_asRoot.sh
+  - curtin in-target -- wget https://raw.githubusercontent.com/danielzoller20/signage/main/install_asUser.sh -O /signage/install_asUser.sh
+  - curtin in-target -- chmod +x /signage/install_asUser.sh 
